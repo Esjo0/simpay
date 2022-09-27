@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     $status = [
@@ -32,6 +32,10 @@ Route::get('/dashboard', function () {
 
 Route::post('/makepayment', [App\Http\Controllers\TransactionController::class, 'prepareTransaction'])->middleware(['auth'])->name('make.payment');
 Route::get('/verifypayment/{encrypted_trans_id}', [App\Http\Controllers\TransactionController::class, 'verifyTransaction'])->middleware(['auth'])->name('verify.payment');
+
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+Route::post('/admin/transactions', [App\Http\Controllers\AdminController::class, 'allTransactions'])->name('transactions');
+
 
 
 require __DIR__.'/auth.php';
